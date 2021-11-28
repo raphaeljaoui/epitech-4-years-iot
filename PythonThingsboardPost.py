@@ -4,7 +4,7 @@ import json
 import time
 from datetime import datetime
 
-ACCESS_TOKEN='your token'                 #Token of your device
+ACCESS_TOKEN='VgiIeLAbqIvyR47rQRfF'                 #Token of your device
 broker="thingsboard.cloud"   			    #host name
 port=1883 					    #data listening port
 
@@ -19,8 +19,8 @@ client1.connect(broker,port,keepalive=60)           #establish connection
 while True:
   
    payload="{"
-   payload+="\"Humidity\":01,"; 
-   payload+="\"Temperature\":50"; 
+   payload+="\"Humidity\":05,"; 
+   payload+="\"Temperature\":40"; 
    payload+="}"
    ret= client1.publish("v1/devices/me/telemetry",payload) #topic-v1/devices/me/telemetry
    print("Please check LATEST TELEMETRY field of your device")
