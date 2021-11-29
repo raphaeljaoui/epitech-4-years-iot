@@ -62,7 +62,6 @@ def light_sensor():
         light_sensor_call(TOKEN6, tabsensor[2]["light_statut"], tabsensor[2]["on_off"], tabsensor[2]["light_intensity"])
         light_sensor_call(TOKEN5, tabsensor[1]["light_statut"], tabsensor[1]["on_off"], tabsensor[1]["light_intensity"])
         light_sensor_call(TOKEN4, tabsensor[0]["light_statut"], tabsensor[0]["on_off"], tabsensor[0]["light_intensity"])
-        time.sleep(2)
 
 
         print(tabsensor)
@@ -72,9 +71,7 @@ def light_sensor():
 @app.route('/temp_humidity', methods=['POST'])
 def temp_humidity():
     result = request.json
-    value = result["value"]
     time = result['time']
-    print(value)
     print(time)
     
     temp_humidity_call(TOKEN1)
@@ -91,26 +88,28 @@ def fluid_sensor():
     INK = result['color']
     Consume = result['quantity']
     test = result['name']
+    print(test)
+
 
     if test == "1":
-        tabsensor[0]["Substance"] = Substance;
-        tabsensor[0]["Consume"] = Consume;
-        tabsensor[0]["INK"] = INK;
+        tabfluid[0]["Substance"] = Substance;
+        tabfluid[0]["Consume"] = Consume;
+        tabfluid[0]["INK"] = INK;
     if test == "2":
-        tabsensor[1]["Substance"] = Substance;
-        tabsensor[1]["Consume"] = Consume;
-        tabsensor[1]["INK"] = INK;
+        tabfluid[1]["Substance"] = Substance;
+        tabfluid[1]["Consume"] = Consume;
+        tabfluid[1]["INK"] = INK;
     if test == "3":
-        tabsensor[2]["Substance"] = Substance;
-        tabsensor[2]["Consume"] = Consume;
-        tabsensor[2]["INK"] = INK;
+        tabfluid[2]["Substance"] = Substance;
+        tabfluid[2]["Consume"] = Consume;
+        tabfluid[2]["INK"] = INK;
     print(Substance)
     print(time)
     print(Consume)
     print(INK)
-    fluid_sensor(TOKEN7, tabsensor[0]["Substance"], tabsensor[0]["Consume"], tabsensor[0]["INK"])
-    fluid_sensor(TOKEN8, tabsensor[1]["Substance"], tabsensor[1]["Consume"], tabsensor[1]["INK"])
-    fluid_sensor(TOKEN9, tabsensor[2]["Substance"], tabsensor[2]["Consume"], tabsensor[2]["INK"])
+    fluid_sensor(TOKEN7, tabfluid[0]["Substance"], tabfluid[0]["Consume"], tabfluid[0]["INK"])
+    fluid_sensor(TOKEN8, tabfluid[1]["Substance"], tabfluid[1]["Consume"], tabfluid[1]["INK"])
+    fluid_sensor(TOKEN9, tabfluid[2]["Substance"], tabfluid[2]["Consume"], tabfluid[2]["INK"])
     return(result)
 
 
