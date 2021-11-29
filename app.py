@@ -57,10 +57,15 @@ def light_sensor():
             tabsensor[2]["light_intensity"] = light_intensity;
             tabsensor[2]["on_off"] = light_sensor;
             tabsensor[2]["light_statut"] = is_open;
+
+            
         light_sensor_call(TOKEN6, tabsensor[2]["light_statut"], tabsensor[2]["on_off"], tabsensor[2]["light_intensity"])
         light_sensor_call(TOKEN5, tabsensor[1]["light_statut"], tabsensor[1]["on_off"], tabsensor[1]["light_intensity"])
         light_sensor_call(TOKEN4, tabsensor[0]["light_statut"], tabsensor[0]["on_off"], tabsensor[0]["light_intensity"])
+        time.sleep(2)
 
+
+        print(tabsensor)
         return(result)
 
 
