@@ -15,18 +15,26 @@ const FluidSensor = ({title}) => {
             time
         }
 
-        return fetch("http://127.0.0.1:5000/fluid_sensor", {
-            method:"POST",
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify(obj)
-        }).then(res=> {return res.json()})
-        .then(res=> console.log(res))
+        return setInterval(() => {
+            // console.log(obj);
+            fetch("http://127.0.0.1:5000/fluid_sensor", {
+                method:"POST",
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify(obj)
+            }).then(res=> {return res.json()})
+            .then(res=> console.log(res))
+        }, time*1000)
         // setTimeout(() => {
         //     console.log(obj);
         // }, time* 1000)
+    }
+
+    const stop = () => {
+        var x  = send()
+        clearInterval(x)
     }
     return (
         <div>
@@ -45,6 +53,7 @@ const FluidSensor = ({title}) => {
             <label>time</label> <br/>
             <input type="number" onChange={e => settime(e.target.value)}/> <br/>
             <button onClick={send}>send</button>
+            {/* <button onClick={stop}>stop</button> */}
         </div>
     );
 };
