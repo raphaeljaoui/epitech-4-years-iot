@@ -43,8 +43,9 @@ const FluidSensor = ({title}) => {
             <label>{title}</label> <br/>
             <label>value</label> <br/>
             <input type="text" onChange={e => setvalue(e.target.value)}/> <br/>
+            <label>select Fluid</label> <br/>
             <select name="status" id="pet-select" onChange={e => setname(e.target.value)}>
-                <option value="">--Please choose a ligth sensor--</option>
+                <option value="">--Please choose a fluid sensor--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
