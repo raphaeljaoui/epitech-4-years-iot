@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import Thermo from '../thermo-sensor.png'
 const ButtonHumidity = ({title}) => {
     const [value, setvalue] = useState(0)
     const [time, settime] = useState(0)
@@ -29,6 +29,7 @@ const ButtonHumidity = ({title}) => {
 
     return (
         <div>
+            <img src={Thermo} style={{width:50, height:50}}/>
             <label>{title}</label> <br/>
             {/* <label>value</label> <br/>
             <input type="number"  onChange={e => setvalue(e.target.value)}/> <br/>*/}

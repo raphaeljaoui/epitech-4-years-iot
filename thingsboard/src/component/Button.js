@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Light from '../light-sensor.png'
 
 const ButtonLightSensor = ({title}) => {
     const [name, setname] = useState("")
@@ -31,6 +32,7 @@ const ButtonLightSensor = ({title}) => {
 
     return (
         <>
+            <img src={Light} style={{width:50, height:50}}/>
             <label for="pet-select">{title}</label> <br/>
             <button onClick={() => setboolLight(!boolLight)}>{title}</button> <br/>
             <label>select Ligth</label> <br/>

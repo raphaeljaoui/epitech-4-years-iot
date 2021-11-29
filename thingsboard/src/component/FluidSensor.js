@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import Fluid from'../fluid-sensor.jpeg'
 
 const FluidSensor = ({title}) => {
     const [name, setname] = useState("")
@@ -40,6 +41,7 @@ const FluidSensor = ({title}) => {
     }
     return (
         <div>
+            <img src={Fluid} style={{width:50, height:50}}/>
             <label>{title}</label> <br/>
             <label>value</label> <br/>
             <input type="text" onChange={e => setvalue(e.target.value)}/> <br/>
