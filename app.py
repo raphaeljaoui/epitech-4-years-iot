@@ -7,28 +7,23 @@ CORS(app)
 
 @app.route('/light_sensor', methods=['POST'])
 def light_sensor():
-    try:
-        result = request.form.getlist("is_open")
-        # is_open = result["is_open"]
-        # light_sensor = result['light_sensor']
-        # time = result['time']
+        result = request.json
+        is_open = result["is_open"]
+        light_sensor = result['light_sensor']
+        time = result['time']
 
-        print(result)
-        # print(light_sensor)
-        # print(is_open)
-        # print(time)
+        print(is_open)
+        print(light_sensor)
+        print(is_open)
+        print(time)
         
         return(result)
-    except Exception:
-        result = request.form.getlist("is_open")
-        # print(result)
-        return ("lol")
-
+   
 
 
 @app.route('/temp_humidity', methods=['POST'])
 def temp_humidity():
-    result = request.form
+    result = request.json
     value = result["value"]
     time = result['time']
 
@@ -39,7 +34,7 @@ def temp_humidity():
 
 @app.route('/fluid_sensor', methods=['POST'])
 def fluid_sensor():
-    result = request.form
+    result = request.json
     value = result["value"]
     time = result['time']
     color = result['color']

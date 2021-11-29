@@ -7,8 +7,8 @@ const ButtonLightSensor = ({title}) => {
 
     const send = () => {
         var obj = {
-            is_open: "boolLight",
-            light_sensor: "status",
+            is_open: boolLight,
+            light_sensor: status,
             time,
         }
 
