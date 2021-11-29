@@ -46,12 +46,20 @@ def light_sensor():
         print(light_sensor)
     
         if test == "1":
-            light_sensor_call(TOKEN4, light_sensor, is_open, light_intensity)
+            tabsensor[0]["light_intensity"] = light_intensity;
+            tabsensor[0]["on_off"] = light_sensor;
+            tabsensor[0]["light_statut"] = is_open;
         if test == "2":
-            light_sensor_call(TOKEN5, light_sensor, is_open, light_intensity)
+            tabsensor[1]["light_intensity"] = light_intensity;
+            tabsensor[1]["on_off"] = light_sensor;
+            tabsensor[1]["light_statut"] = is_open;
         if test == "3":
-            light_sensor_call(TOKEN6, light_sensor, is_open, light_intensity)
-
+            tabsensor[2]["light_intensity"] = light_intensity;
+            tabsensor[2]["on_off"] = light_sensor;
+            tabsensor[2]["light_statut"] = is_open;
+        light_sensor_call(TOKEN6, tabsensor[2]["light_statut"], tabsensor[2]["on_off"], tabsensor[2]["light_intensity"])
+        light_sensor_call(TOKEN5, tabsensor[1]["light_statut"], tabsensor[1]["on_off"], tabsensor[1]["light_intensity"])
+        light_sensor_call(TOKEN4, tabsensor[0]["light_statut"], tabsensor[0]["on_off"], tabsensor[0]["light_intensity"])
 
         return(result)
 
