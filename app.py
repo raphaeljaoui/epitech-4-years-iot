@@ -71,9 +71,7 @@ def light_sensor():
 @app.route('/temp_humidity', methods=['POST'])
 def temp_humidity():
     result = request.json
-    value = result["value"]
     time = result['time']
-    print(value)
     print(time)
     
     temp_humidity_call(TOKEN1)
