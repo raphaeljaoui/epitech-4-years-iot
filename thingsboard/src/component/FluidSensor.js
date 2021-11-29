@@ -4,19 +4,29 @@ const FluidSensor = ({title}) => {
     const [value, setvalue] = useState(0)
     const [time, settime] = useState(0)
     const [color, setColor] = useState(undefined)
-    const [qunatity, setQuantity] = useState(0)
+    const [quantity, setQuantity] = useState(0)
 
 
     const send = () => {
         var obj = {
             value,
             color,
-            qunatity
+            quantity,
+            time
         }
 
-        setTimeout(() => {
-            console.log(obj);
-        }, time* 1000)
+        return fetch("http://127.0.0.1:5000/fluid_sensor", {
+            method:"POST",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(obj)
+        }).then(res=> {return res.json()})
+        .then(res=> console.log(res))
+        // setTimeout(() => {
+        //     console.log(obj);
+        // }, time* 1000)
     }
     return (
         <div>
