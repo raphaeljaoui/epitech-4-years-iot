@@ -19,29 +19,41 @@ TOKEN4 = "KTEfpUvRGNk6oxkBoHd8"
 TOKEN5 = "xWPqk1txZ8uNHgbLO6ZY"
 TOKEN6 = "rhxMmG39ZWY4Rno0igwe"
 
+TOKEN7="0z54NDIuYa7b8MNVX17C"
+TOKEN8="itzjUhFcEH2J9kZVTqct"
+TOKEN9="vHAIXeSYYMNUjSsfVSVS"
+
+
+tabsensor = [{"light_intensity":10, "on_off":True, "light_statut": "day"}, {"light_intensity":15, "on_off":True, "light_statut": "day"}, {"light_intensity":20, "on_off":True, "light_statut": "day"}]
+
+
 @app.route('/light_sensor', methods=['POST'])
 def light_sensor():
         result = request.json
         is_open = result["is_open"]
+        print(type(is_open))
         light_sensor = result['light_sensor']
         light_intensity = result['time']
 
-        print(is_open)
-        print(light_sensor)
-        print(is_open)
-        
-        # light_sensor_call(TOKEN4, is_open, light_sensor, light_intensity)
-        # light_sensor_call(TOKEN5, is_open, light_sensor, light_intensity)
-        # light_sensor_call(TOKEN6, is_open, light_sensor, light_intensity)
+        test = result['name']
+        print("-----------------------------------------")
+        print(test)
+        print("-------------------------------------")
 
-        my_dict=  {
-            "light_intensity": light_intensity,
-            "on_off": is_open,
-            "light_statut": light_sensor
-        }
-        light_sensor_call(TOKEN4, my_dict)
+        if (is_open == True):
+            print("OUI")
+
+        print(light_sensor)
+    
+        if test == "1":
+            light_sensor_call(TOKEN4, light_sensor, is_open, light_intensity)
+        if test == "2":
+            light_sensor_call(TOKEN5, light_sensor, is_open, light_intensity)
+        if test == "3":
+            light_sensor_call(TOKEN6, light_sensor, is_open, light_intensity)
+
+
         return(result)
-   
 
 
 @app.route('/temp_humidity', methods=['POST'])
@@ -56,31 +68,34 @@ def temp_humidity():
     temp_humidity_call(TOKEN1)
     temp_humidity_call(TOKEN2)
     temp_humidity_call(TOKEN3)
+    temp_humidity_call(TOKEN4)
     return(result)
 
 @app.route('/fluid_sensor', methods=['POST'])
 def fluid_sensor():
     result = request.json
-    value = result["value"]
+    Substance = result["value"]
     time = result['time']
-    color = result['color']
-    quantity = result['quantity']
+    INK = result['color']
+    Consume = result['quantity']
 
-    print(value)
+    print(Substance)
     print(time)
-    print(quantity)
-    print(color)
-    
+    print(Consume)
+    print(INK)
+    fluid_sensor(TOKEN7, Substance, Consume, INK)
+    fluid_sensor(TOKEN8, Substance, Consume, INK)
+    fluid_sensor(TOKEN9, Substance, Consume, INK)
     return(result)
 
 
 
 
 
-broker="thingsboard.cloud"   			    #host name
-port=1883 					    #data listening port
+broker="thingsboard.cloud"
+port=1883
 
-def on_publish(client,userdata,result):             #create function for callback
+def on_publish(client,userdata,result):
     print("data published to thingsboard \n")
     pass
 
@@ -110,21 +125,61 @@ def temp_humidity_call(ACCESS_TOKEN):
 
 
 
-def light_sensor_call(ACCESS_TOKEN, my_dict):
+def light_sensor_call(ACCESS_TOKEN, light_statut, on_off, light_intensity):
     client1= paho.Client("control1")
     client1.on_publish = on_publish
     client1.username_pw_set(ACCESS_TOKEN)
     client1.connect(broker,port,keepalive=60)
-    
     test = 0
 
-    while test < 1:
-        rand_humidity = (random.randint(0, 100))
-        rand_temp = (random.randint(-20, 50))
 
-        ret= client1.publish("v1/devices/me/telemetry",my_dict)
+    print(light_intensity)
+    print("on_off : ", on_off)
+    print("light status :", light_statut)
+
+    string1 = "\"light_intensity\":\"" + str(light_intensity) + "\","
+    string2 = "\"on_off\":" + str(on_off) + ","
+    string3 =  "\"light_statut\":" + str(light_statut)
+    while test < 1:
+        
+        payload="{"
+        payload+=string1
+        payload+=string2
+        payload+=string3
+        payload+="}"
+
+        ret= client1.publish("v1/devices/me/telemetry",payload)
+        print(payload)
         print("Please check LATEST TELEMETRY field of your device")
-        print(my_dict)
         time.sleep(1)
         test +=1
 
+
+def fluid_sensor(ACCESS_TOKEN, Substance, Consume, INK):
+    client1= paho.Client("control1")
+    client1.on_publish = on_publish
+    client1.username_pw_set(ACCESS_TOKEN)
+    client1.connect(broker,port,keepalive=60)
+    test = 0
+
+
+    print("substance =", Substance)
+    print("CONSUME", Consume)
+    print("INK", INK)
+
+    string1 = "\"Substance\":\"" + str(Substance) + "\","
+    string2 = "\"Consume\":" + str(Consume) + ","
+    string3 =  "\"INK\":\"" + str(INK) + "\""
+    while test < 1:
+        
+        payload="{"
+        payload+=string1
+        payload+=string2
+        payload+=string3
+        payload+="}"
+
+        ret= client1.publish("v1/devices/me/telemetry",payload)
+        print(payload)
+        print("Please check LATEST TELEMETRY field of your device")
+        time.sleep(1)
+        test +=1
