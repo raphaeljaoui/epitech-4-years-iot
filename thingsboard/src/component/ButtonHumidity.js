@@ -7,11 +7,21 @@ const ButtonHumidity = ({title}) => {
     const send = () => {
         var obj = {
             value,
+            time
         }
 
-        setTimeout(() => {
-            console.log(obj);
-        }, time* 1000)
+        return fetch("http://127.0.0.1:5000/temp_humidity", {
+            method:"POST",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(obj)
+        }).then(res=> {return res.json()})
+        .then(res=> console.log(res))
+        // setTimeout(() => {
+        //     console.log(obj);
+        // }, time* 1000)
     }
 
     return (
