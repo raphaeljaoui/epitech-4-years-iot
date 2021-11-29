@@ -29,12 +29,18 @@ const ButtonLightSensor = ({title}) => {
             .then(res=> console.log(res))
         }, time* 1000)
     }
+    
+    console.log(boolLight);
 
     return (
         <>
             <img src={Light} style={{width:50, height:50}}/>
             <label for="pet-select">{title}</label> <br/>
-            <button onClick={() => setboolLight(!boolLight)}>{title}</button> <br/>
+            <label class="switch">
+                <input type="checkbox" onClick={() => setboolLight(!boolLight)}/>
+                <span class="slider">on/off</span>
+                </label><br/>
+            {/* <button onClick={() => setboolLight(!boolLight)}>{title}</button> <br/> */}
             <label>select Ligth</label> <br/>
             <select name="status" id="pet-select" onChange={e => setname(e.target.value)}>
                 <option value="">--Please choose a ligth sensor--</option>
