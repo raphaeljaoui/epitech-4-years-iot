@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 
 const FluidSensor = ({title}) => {
+    const [name, setname] = useState("")
     const [value, setvalue] = useState(0)
     const [time, settime] = useState(0)
     const [color, setColor] = useState(undefined)
@@ -9,6 +10,7 @@ const FluidSensor = ({title}) => {
 
     const send = () => {
         var obj = {
+            name,
             value,
             color,
             quantity,
@@ -41,6 +43,12 @@ const FluidSensor = ({title}) => {
             <label>{title}</label> <br/>
             <label>value</label> <br/>
             <input type="text" onChange={e => setvalue(e.target.value)}/> <br/>
+            <select name="status" id="pet-select" onChange={e => setname(e.target.value)}>
+                <option value="">--Please choose a ligth sensor--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select><br/>
             <label>color</label> <br/>
             <select name="status" id="pet-select" onChange={e => setColor(e.target.value)}>
                 <option value="">--Please choose a color--</option>

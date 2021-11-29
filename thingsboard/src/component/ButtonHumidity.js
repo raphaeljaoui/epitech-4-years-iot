@@ -7,7 +7,7 @@ const ButtonHumidity = ({title}) => {
     const send = () => {
         var obj = {
             // value,
-            // time
+            time
         }
 
         setInterval(() => {
