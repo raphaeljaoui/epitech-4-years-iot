@@ -74,16 +74,15 @@ def temp_humidity():
     result = request.json
     value = result["value"]
     time = result['time']
-
     print(value)
     print(time)
     
     temp_humidity_call(TOKEN1)
     temp_humidity_call(TOKEN2)
     temp_humidity_call(TOKEN3)
-    temp_humidity_call(TOKEN4)
     return(result)
 
+tabfluid= [{"Substance":"ink", "INK": "red", "Consume":10},{"Substance":"ink", "INK": "red", "Consume":10},{"Substance":"ink", "INK": "red", "Consume":10}]
 @app.route('/fluid_sensor', methods=['POST'])
 def fluid_sensor():
     result = request.json
@@ -91,14 +90,27 @@ def fluid_sensor():
     time = result['time']
     INK = result['color']
     Consume = result['quantity']
+    test = result['name']
 
+    if test == "1":
+        tabsensor[0]["Substance"] = Substance;
+        tabsensor[0]["Consume"] = Consume;
+        tabsensor[0]["INK"] = INK;
+    if test == "2":
+        tabsensor[1]["Substance"] = Substance;
+        tabsensor[1]["Consume"] = Consume;
+        tabsensor[1]["INK"] = INK;
+    if test == "3":
+        tabsensor[2]["Substance"] = Substance;
+        tabsensor[2]["Consume"] = Consume;
+        tabsensor[2]["INK"] = INK;
     print(Substance)
     print(time)
     print(Consume)
     print(INK)
-    fluid_sensor(TOKEN7, Substance, Consume, INK)
-    fluid_sensor(TOKEN8, Substance, Consume, INK)
-    fluid_sensor(TOKEN9, Substance, Consume, INK)
+    fluid_sensor(TOKEN7, tabsensor[0]["Substance"], tabsensor[0]["Consume"], tabsensor[0]["INK"])
+    fluid_sensor(TOKEN8, tabsensor[1]["Substance"], tabsensor[1]["Consume"], tabsensor[1]["INK"])
+    fluid_sensor(TOKEN9, tabsensor[2]["Substance"], tabsensor[2]["Consume"], tabsensor[2]["INK"])
     return(result)
 
 
