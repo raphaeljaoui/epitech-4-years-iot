@@ -10,21 +10,36 @@ import random
 app = Flask(__name__)
 CORS(app)
 
+TOKEN1 = "OJfqGEBS6iy8OTv6R7vu"
+TOKEN2 = "Ox3aRPdHvqZAtbIw4P0W"
+TOKEN3 = "xqP50CYO2yvjjRHXoEUT"
+
+
+TOKEN4 = "KTEfpUvRGNk6oxkBoHd8"
+TOKEN5 = "xWPqk1txZ8uNHgbLO6ZY"
+TOKEN6 = "rhxMmG39ZWY4Rno0igwe"
 
 @app.route('/light_sensor', methods=['POST'])
 def light_sensor():
         result = request.json
         is_open = result["is_open"]
         light_sensor = result['light_sensor']
-        time = result['time']
+        light_intensity = result['time']
 
         print(is_open)
         print(light_sensor)
         print(is_open)
-        print(time)
         
-        test1("OJfqGEBS6iy8OTv6R7vu")
+        # light_sensor_call(TOKEN4, is_open, light_sensor, light_intensity)
+        # light_sensor_call(TOKEN5, is_open, light_sensor, light_intensity)
+        # light_sensor_call(TOKEN6, is_open, light_sensor, light_intensity)
 
+        my_dict=  {
+            "light_intensity": light_intensity,
+            "on_off": is_open,
+            "light_statut": light_sensor
+        }
+        light_sensor_call(TOKEN4, my_dict)
         return(result)
    
 
@@ -38,6 +53,9 @@ def temp_humidity():
     print(value)
     print(time)
     
+    temp_humidity_call(TOKEN1)
+    temp_humidity_call(TOKEN2)
+    temp_humidity_call(TOKEN3)
     return(result)
 
 @app.route('/fluid_sensor', methods=['POST'])
@@ -66,7 +84,7 @@ def on_publish(client,userdata,result):             #create function for callbac
     print("data published to thingsboard \n")
     pass
 
-def test1(ACCESS_TOKEN):
+def temp_humidity_call(ACCESS_TOKEN):
     client1= paho.Client("control1")
     client1.on_publish = on_publish
     client1.username_pw_set(ACCESS_TOKEN)
@@ -89,3 +107,24 @@ def test1(ACCESS_TOKEN):
         print(payload)
         time.sleep(1)
         test +=1
+
+
+
+def light_sensor_call(ACCESS_TOKEN, my_dict):
+    client1= paho.Client("control1")
+    client1.on_publish = on_publish
+    client1.username_pw_set(ACCESS_TOKEN)
+    client1.connect(broker,port,keepalive=60)
+    
+    test = 0
+
+    while test < 1:
+        rand_humidity = (random.randint(0, 100))
+        rand_temp = (random.randint(-20, 50))
+
+        ret= client1.publish("v1/devices/me/telemetry",my_dict)
+        print("Please check LATEST TELEMETRY field of your device")
+        print(my_dict)
+        time.sleep(1)
+        test +=1
+
