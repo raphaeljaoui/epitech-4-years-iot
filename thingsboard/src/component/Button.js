@@ -7,13 +7,24 @@ const ButtonLightSensor = ({title}) => {
 
     const send = () => {
         var obj = {
-            value: boolLight,
-            status,
+            is_open: "boolLight",
+            light_sensor: "status",
+            time,
         }
 
-        setTimeout(() => {
-            console.log(obj);
-        }, time* 1000)
+        return fetch("http://127.0.0.1:5000/light_sensor", {
+            method:"POST",
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(obj)
+        }).then(res=> {return res.json()})
+        .then(res=> console.log(res))
+
+        // setInterval(() => {
+        //     console.log(obj);
+        // }, time* 1000)
     }
 
     return (

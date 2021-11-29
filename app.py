@@ -1,20 +1,29 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/light_sensor', methods=['POST'])
 def light_sensor():
-    result = request.form
-    is_open = result["is_open"]
-    light_sensor = result['light_sensor']
-    time = result['time']
+    try:
+        result = request.form.getlist("is_open")
+        # is_open = result["is_open"]
+        # light_sensor = result['light_sensor']
+        # time = result['time']
 
-    print(light_sensor)
-    print(is_open)
-    print(time)
-    
-    return(result)
+        print(result)
+        # print(light_sensor)
+        # print(is_open)
+        # print(time)
+        
+        return(result)
+    except Exception:
+        result = request.form.getlist("is_open")
+        # print(result)
+        return ("lol")
+
 
 
 @app.route('/temp_humidity', methods=['POST'])
