@@ -38,9 +38,9 @@ const ButtonLightSensor = ({title}) => {
             <label>select Ligth</label> <br/>
             <select name="status" id="pet-select" onChange={e => setname(e.target.value)}>
                 <option value="">--Please choose a ligth sensor--</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                <option value="1">1 - Outside light</option>
+                <option value="2">2 - Kitchen room</option>
+                <option value="3">3 - Light parent room</option>
             </select><br/>
             <label>Status</label> <br/>
             <select name="status" id="pet-select" onChange={e => setStatus(e.target.value)}>

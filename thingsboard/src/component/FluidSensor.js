@@ -48,9 +48,9 @@ const FluidSensor = ({title}) => {
             <label>select Fluid</label> <br/>
             <select name="status" id="pet-select" onChange={e => setname(e.target.value)}>
                 <option value="">--Please choose a fluid sensor--</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
+                <option value="1">1 - Pipeline 1</option>
+                <option value="2">2 - Pipeline 2</option>
+                <option value="3">3 - Fluide sensor printer</option>
             </select><br/>
             <label>color</label> <br/>
             <select name="status" id="pet-select" onChange={e => setColor(e.target.value)}>
